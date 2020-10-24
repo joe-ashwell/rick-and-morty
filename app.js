@@ -18,8 +18,6 @@ fetch(endpoint)
         }
     });
 
-console.log(characters);
-
 // function to find matches between user search and characters array. Passing in the 'wordToMatch' which is what the user searches, and the character array to the function, so it knows what to search against.
 function findMatches(wordToMatch, characters) {
   
@@ -36,11 +34,30 @@ function findMatches(wordToMatch, characters) {
 
 }
 
+// function to display the matches
 function displayMatches() {
 
+  // Invokes the findmatches function passing the value from the user and the characters array
   const matchValues = findMatches(this.value, characters);
-  console.log(matchValues);
+
+  const html = matchValues.map(character => {
+
+    const regex = new RegExp(this.value, 'gi');
+    const characterName = character.name.replace(regex, `<span class="highlight">${this.value}</span>`);
+    const characterSpecies = character.species.replace(regex, `<span class="highlight">${this.value}</span>`);
+
+    return `
+    <li class="result">
+      <span class="character-name">${characterName}, ${characterSpecies}</span>
+      <span class="character-status">${character.status}</span>
+    </li>
+    `
+  }).join('');
+
+  // displays the html variable to the page
+  suggestions.innerHTML = html;
 
 }
 
+// Event listener to listen to the key presses of the user in the search bar
 searchInput.addEventListener('keyup', displayMatches);
