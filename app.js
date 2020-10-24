@@ -3,7 +3,8 @@ const endpoint = 'https://rickandmortyapi.com/api/character/'
 const characters = [];
 
 const searchInput = document.querySelector('input.search');
-const suggestions = document.querySelector('ul.suggestions');
+const resultsReturned = document.querySelector('ul.results-returned');
+const countResults = document.querySelector('p.count-results');
 
 fetch(endpoint)
     .then(blob => blob.json())
@@ -40,22 +41,43 @@ function displayMatches() {
   // Invokes the findmatches function passing the value from the user and the characters array
   const matchValues = findMatches(this.value, characters);
 
-  const html = matchValues.map(character => {
+    const html = matchValues.map(character => {
 
-    const regex = new RegExp(this.value, 'gi');
-    const characterName = character.name.replace(regex, `<span class="highlight">${this.value}</span>`);
-    const characterSpecies = character.species.replace(regex, `<span class="highlight">${this.value}</span>`);
-
-    return `
-    <li class="result">
-      <span class="character-name">${characterName}, ${characterSpecies}</span>
-      <span class="character-status">${character.status}</span>
-    </li>
-    `
-  }).join('');
+      const regex = new RegExp(this.value, 'gi');
+      const characterName = character.name.replace(regex, `<span class="highlight">${this.value}</span>`);
+      const characterSpecies = character.species.replace(regex, `<span class="highlight">${this.value}</span>`);
+      
+      return `
+      <li class="result">
+        <span class="group-items-left">
+          <img class="list-image" src="${character.image}">
+          <span class="character-name">${characterName}, ${characterSpecies}</span>
+        </span>
+        <span class="character-status">${character.status}</span>
+      </li>
+      `
+    }).join('');
 
   // displays the html variable to the page
-  suggestions.innerHTML = html;
+  if (matchValues.length > 0) {
+    resultsReturned.innerHTML = html;
+  } else {
+    resultsReturned.innerHTML = `<li class="result no-result"><img class="list-image" src="https://rickandmortyapi.com/api/character/avatar/66.jpeg"><span class="character-name">No such character, idiot!</span></li>`
+  }
+
+  countMatches();
+}
+
+// Function to count the matches
+function countMatches() {
+
+  const listElements = document.querySelectorAll('li.result');
+
+  if (listElements[0].textContent === "No such character, idiot!") {
+    countResults.innerHTML = `No results found`;
+  } else {
+    countResults.innerHTML = `${listElements.length} results from ${characters.length} characters`;
+  }
 
 }
 

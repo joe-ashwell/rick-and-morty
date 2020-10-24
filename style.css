@@ -1,3 +1,13 @@
+/* General */
+:root {
+  /* Colours */
+  --randm-brown: #44281d;
+  --randm-flesh: #e4a788;
+  --randm-yellow: #f0e14a;
+  --randm-green: #97ce4c;
+  --randm-pink: #e89ac7;
+}
+
 @font-face {
   font-family: "getSchwifty";
   src: url("font/rick_and_morty_font_by_starriichan_d9h2vl6.ttf");
@@ -5,9 +15,81 @@
 
 * {
   font-family: "getSchwifty";
-  font-size: 1.5rem;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Heading */
+h1 {
+  font-size: 5rem;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: 3rem;
+  margin-top: 1rem;
+}
+
+/* Number of matches */
+p.count-results {
+  font-size: 1.25rem;
+}
+
+/* Return list */
+input {
+  font-size: 2rem;
+  width: 60vw;
+  padding: 1rem;
+}
+
+ul {
+  padding: 1rem;
+}
+
+li.result {
+  list-style: none;
+  font-size: 2rem;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-items-left {
+  display: flex;
+  align-items: center;
+}
+
+.character-name {
+  margin-left: 1rem;
+}
+
+/* No result */
+li.no-result {
+  justify-content: start;
+}
+
+.list-image {
+  width: 50px;
 }
 
 .highlight {
-  border-bottom: solid 2px black;
+  background-color: var(--randm-green);
+}
+
+/* footer */
+footer p,
+footer a {
+  font-size: 1.25rem;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
