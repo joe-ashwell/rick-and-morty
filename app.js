@@ -2,17 +2,18 @@ const endpoint = 'https://rickandmortyapi.com/api/character/'
 
 const characters = [];
 
-let characterEndpoint;
-
 fetch(endpoint)
     .then(blob => blob.json())
     .then(data => {
 
-      let characterCount = data.info.count;
+      let pagesCount = data.info.pages;
 
-        for (let c = 1; c < characterCount; c++) {
-          fetch(`${endpoint}${c}`)
-            .then(blob2 => blob2.json())
-            .then(character => characters.push(character));
+        for (let c = 1; c <= pagesCount; c++) {
+          fetch(`${endpoint}?page=${c}`)
+            .then(blob => blob.json())
+            .then(page => characters.push(...page.results));
         }
     });
+
+
+    console.log(characters);
