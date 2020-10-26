@@ -5,6 +5,10 @@ const characters = [];
 const searchInput = document.querySelector('input.search');
 const resultsReturned = document.querySelector('ul.results-returned');
 const countResults = document.querySelector('p.count-results');
+const closeModal = document.querySelector('p.modal-close');
+const displayCharacterDiv = document.querySelector('div.modal-display-character');
+const innerDisplayCharacterDiv = document.querySelector('div.inner-modal-display-character');
+const mainSection = document.querySelector('main');
 
 fetch(endpoint)
     .then(blob => blob.json())
@@ -66,6 +70,7 @@ function displayMatches() {
   }
 
   countMatches();
+  callOutCharacter();
 }
 
 // Function to count the matches
@@ -81,5 +86,41 @@ function countMatches() {
 
 }
 
+function callOutCharacter() {
+  const listItems = document.querySelectorAll('li.result');
+
+  listItems.forEach(item => {
+    item.addEventListener("click", () => {
+      let name = item.textContent.split(",");
+      console.log(name);
+      name[0] = name[0].replace(/(^\s+|\s+$)/g,'');
+      console.log(name[0]);
+
+      displayCharacterDiv.style.display = "block"
+
+      // I did get caught out on undefined elements as I hadn't considered case discrepencies.
+      const character = characters.find(cast => cast.name.toLowerCase() === name[0].toLowerCase());
+      console.log(character);
+      innerDisplayCharacterDiv.innerHTML = `
+
+      <img src="${character.image}">
+      <h2>Name: ${character.name}</h2>
+      <h2>Episodes: ${character.episode.length}</h2>
+      <h2>Gender: ${character.gender}</h2>
+      <h2>Current location: ${character.location.name}</h2>
+      <h2>Birth place: ${character.origin.name}</h2>
+      <h2>Species: ${character.species}</h2>
+      <h2>Status: ${character.status}</h2>
+      
+      `
+    })
+  })
+
+}
+
 // Event listener to listen to the key presses of the user in the search bar
 searchInput.addEventListener('keyup', displayMatches);
+
+closeModal.addEventListener('click', () => {
+  displayCharacterDiv.style.display = "none"
+});
