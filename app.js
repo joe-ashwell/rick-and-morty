@@ -96,23 +96,32 @@ function callOutCharacter() {
       name[0] = name[0].replace(/(^\s+|\s+$)/g,'');
       console.log(name[0]);
 
-      displayCharacterDiv.style.display = "block"
+      if (name[0] !== "No such character") {
 
-      // I did get caught out on undefined elements as I hadn't considered case discrepencies.
-      const character = characters.find(cast => cast.name.toLowerCase() === name[0].toLowerCase());
-      console.log(character);
-      innerDisplayCharacterDiv.innerHTML = `
+        displayCharacterDiv.style.display = "block"
 
-      <img src="${character.image}">
-      <h2>Name: ${character.name}</h2>
-      <h2>Episodes: ${character.episode.length}</h2>
-      <h2>Gender: ${character.gender}</h2>
-      <h2>Current location: ${character.location.name}</h2>
-      <h2>Birth place: ${character.origin.name}</h2>
-      <h2>Species: ${character.species}</h2>
-      <h2>Status: ${character.status}</h2>
-      
-      `
+        // I did get caught out on undefined elements as I hadn't considered case discrepencies.
+        const character = characters.find(cast => cast.name.toLowerCase() === name[0].toLowerCase());
+        console.log(character);
+        innerDisplayCharacterDiv.innerHTML = `
+  
+        <div>
+          <img class="character-image-modal" src="${character.image}">
+        </div>
+  
+        <div>
+          <p class="character-info-modal">Name: ${character.name}</p>
+          <p class="character-info-modal">Episodes: ${character.episode.length}</p>
+          <p class="character-info-modal">Gender: ${character.gender}</p>
+          <p class="character-info-modal">Current location: ${character.location.name}</p>
+          <p class="character-info-modal">Birth place: ${character.origin.name}</p>
+          <p class="character-info-modal">Species: ${character.species}</h2>
+          <p class="character-info-modal">Status: ${character.status}</p>
+        </div>
+        
+        `
+      }
+
     })
   })
 
