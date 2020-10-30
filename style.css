@@ -34,7 +34,6 @@ footer a {
 }
 
 body {
-  min-height: 100vh;
   margin: 0;
   background-image: url(randm.svg);
   background-position: center center;
@@ -225,6 +224,7 @@ footer {
 
   h1 {
     font-size: 5rem;
+    text-align: center;
   }
 
   input {
@@ -238,8 +238,19 @@ footer {
     margin-bottom: 5rem;
   }
 
+  ul.results-returned {
+    justify-content: center;
+  }
+
   li.result {
-    width: 90%;
+    width: 80%;
+    flex-wrap: wrap;
+  }
+
+  .list-image {
+    width: 80vw;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 1rem;
   }
 
   li.result:nth-child(odd),
@@ -252,12 +263,7 @@ footer {
     margin-left: 1rem;
   }
 
-  .list-image {
-    height: 225px;
-  }
-
   .character-name p {
-    font-size: 1rem;
     font-weight: 800;
   }
 
