@@ -5,9 +5,6 @@ const characters = [];
 const searchInput = document.querySelector('input.search');
 const resultsReturned = document.querySelector('ul.results-returned');
 const countResults = document.querySelector('p.count-results');
-const closeModal = document.querySelector('p.modal-close');
-const displayCharacterDiv = document.querySelector('div.modal-display-character');
-const innerDisplayCharacterDiv = document.querySelector('div.inner-modal-display-character');
 const mainSection = document.querySelector('main');
 
 fetch(endpoint)
@@ -53,11 +50,23 @@ function displayMatches() {
       
       return `
       <li class="result">
-        <span class="group-items-left">
           <img class="list-image" src="${character.image}">
-          <span class="character-name">${characterName}, ${characterSpecies}</span>
+        <span class="list-item-right">
+          <span class="character-name">
+            <p>${characterName}</p>
+          </span>
+          <span class="character-status">
+            <p class="character-status-p ">${character.status} - ${characterSpecies}</p>
+          </span>
+          <span class="character-location-span">
+            <p>Last known location:</p>
+            <span class="character-location">${character.location.name}</span>
+          </span>
+          <span class="episode-number-span">
+            <p>Popularity:</p>
+            <span class="episode-number">${character.episode.length} episode(s)</span>
+          </span>
         </span>
-        <span class="character-status">${character.status}</span>
       </li>
       `
     }).join('');
@@ -70,7 +79,8 @@ function displayMatches() {
   }
 
   countMatches();
-  callOutCharacter();
+  areTheyDead();
+
 }
 
 // Function to count the matches
@@ -86,50 +96,26 @@ function countMatches() {
 
 }
 
-function callOutCharacter() {
-  const listItems = document.querySelectorAll('li.result');
+// Function to check if character is dead or not
+function areTheyDead() {
 
-  listItems.forEach(item => {
-    item.addEventListener("click", () => {
-      let name = item.textContent.split(",");
-      console.log(name);
-      name[0] = name[0].replace(/(^\s+|\s+$)/g,'');
-      console.log(name[0]);
+  const characterStatuses = document.querySelectorAll('p.character-status-p');
 
-      if (name[0] !== "No such character") {
-
-        displayCharacterDiv.style.display = "block"
-
-        // I did get caught out on undefined elements as I hadn't considered case discrepencies.
-        const character = characters.find(cast => cast.name.toLowerCase() === name[0].toLowerCase());
-        console.log(character);
-        innerDisplayCharacterDiv.innerHTML = `
-  
-        <div>
-          <img class="character-image-modal" src="${character.image}">
-        </div>
-  
-        <div>
-          <p class="character-info-modal">Name: ${character.name}</p>
-          <p class="character-info-modal">Episodes: ${character.episode.length}</p>
-          <p class="character-info-modal">Gender: ${character.gender}</p>
-          <p class="character-info-modal">Current location: ${character.location.name}</p>
-          <p class="character-info-modal">Birth place: ${character.origin.name}</p>
-          <p class="character-info-modal">Species: ${character.species}</h2>
-          <p class="character-info-modal">Status: ${character.status}</p>
-        </div>
-        
-        `
+  characterStatuses.forEach(character => {
+    
+      if (character.textContent.toLowerCase().includes("dead")) {
+        character.classList.add("dead");
+      } else if (character.textContent.toLowerCase().includes("alive")) {
+        character.classList.add("alive");
+      } else if (character.textContent.toLowerCase().includes("unknown")) {
+        character.classList.add("unknown");
       }
 
-    })
   })
 
 }
 
+
+
 // Event listener to listen to the key presses of the user in the search bar
 searchInput.addEventListener('keyup', displayMatches);
-
-closeModal.addEventListener('click', () => {
-  displayCharacterDiv.style.display = "none"
-});
