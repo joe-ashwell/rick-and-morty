@@ -75,7 +75,7 @@ function displayMatches() {
   if (matchValues.length > 0) {
     resultsReturned.innerHTML = html;
   } else {
-    resultsReturned.innerHTML = `<li class="result no-result"><img class="list-image" src="https://rickandmortyapi.com/api/character/avatar/66.jpeg"><span class="character-name">No such character, idiot!</span></li>`
+    resultsReturned.innerHTML = `<li class="result no-result"><img class="list-image" src="https://rickandmortyapi.com/api/character/avatar/66.jpeg"><span class="character-name list-item-right"><p style="margin-bottom: 1rem; font-size: 1.2rem;">No such character, idiot!</p></span></li>`
   }
 
   countMatches();
