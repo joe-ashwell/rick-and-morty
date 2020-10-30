@@ -244,12 +244,12 @@ footer {
   }
 
   li.result {
-    width: 60%;
+    width: 70%;
     flex-wrap: wrap;
   }
 
   .list-image {
-    width: 60vw;
+    width: 70vw;
     border-radius: 10px 10px 0 0;
     margin-bottom: 1rem;
   }
