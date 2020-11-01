@@ -71,7 +71,7 @@ p.count-results {
 
 /* Input field */
 input {
-  font-size: 2rem;
+  font-size: 1.5rem;
   width: 60vw;
   padding: 1rem;
   color: var(--font-colour);
@@ -229,7 +229,6 @@ footer {
   }
 
   input {
-    font-size: 1.5rem;
     width: 80vw;
     padding: 1rem;
   }
